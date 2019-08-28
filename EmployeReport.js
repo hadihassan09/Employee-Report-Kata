@@ -36,6 +36,12 @@ class WorkShop {
         return 1;
     }
 
+    capitalizeNames(){
+        this.employes.forEach((element)=> {
+            element.name = element.name.toUpperCase();
+        })
+        return 1;
+    }
 }
 
 
@@ -81,5 +87,9 @@ QUnit.test("Making all names capitalized so I can read it better",(assert) => {
     work.addEmploye('Nina', 15);
     work.addEmploye('Mike', 51);
 
-
+    assert.ok(work.capitalizeNames() === 1);
+    assert.ok(work.employes[0].name === 'SEPP');
+    assert.ok(work.employes[1].name === 'MAX');
+    assert.ok(work.employes[2].name === 'NINA');
+    assert.ok(work.employes[3].name === 'MIKE');
 })
