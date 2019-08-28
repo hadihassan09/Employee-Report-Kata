@@ -17,6 +17,8 @@ var getOverEighteen = (array) => {
     return canWork;
 }
 
+var compare2 = (a, b) => -1 * compare(a, b);
+
 
 class WorkShop {
     constructor(){
@@ -40,6 +42,10 @@ class WorkShop {
         this.employes.forEach((element)=> {
             element.name = element.name.toUpperCase();
         })
+        return 1;
+    }
+    sortByNameDes(){
+        this.employes.sort(compare2);
         return 1;
     }
 }
@@ -78,7 +84,7 @@ QUnit.test("Sortng Array By Names, so its easier to find employes",(assert) => {
     assert.ok(work.employes[1].name === 'Mike');
     assert.ok(work.employes[2].name === 'Nina');
     assert.ok(work.employes[3].name === 'Sepp');
-})
+});
 
 QUnit.test("Making all names capitalized so I can read it better",(assert) => {
     const work = new WorkShop();
@@ -92,4 +98,18 @@ QUnit.test("Making all names capitalized so I can read it better",(assert) => {
     assert.ok(work.employes[1].name === 'MAX');
     assert.ok(work.employes[2].name === 'NINA');
     assert.ok(work.employes[3].name === 'MIKE');
-})
+});
+
+QUnit.test("Sortng Array By Names, so its easier to find employes",(assert) => {
+    const work = new WorkShop();
+    work.addEmploye('Sepp',18);
+    work.addEmploye('Max', 17);
+    work.addEmploye('Nina', 15);
+    work.addEmploye('Mike', 51);
+
+    assert.ok(work.sortByNameDes() === 1);
+    assert.ok(work.employes[0].name === 'Sepp');
+    assert.ok(work.employes[1].name === 'Nina');
+    assert.ok(work.employes[2].name === 'Mike');
+    assert.ok(work.employes[3].name === 'Max');
+});
