@@ -44,6 +44,7 @@ class WorkShop {
         })
         return 1;
     }
+    
     sortByNameDes(){
         this.employes.sort(compare2);
         return 1;
