@@ -11,14 +11,13 @@ const compare = (a, b) => {
 const getOverEighteen = (array) => {
     let canWork = [];
     for(let i=0;i < array.length; i++){
-        if(array[i].age > 18)
+        if(array[i].age >= 18)
             canWork.push(array[i]);
     }
     return canWork;
 }
 
 const compareInv = (a, b) => -1 * compare(a, b);
-
 
 class WorkShop {
     constructor(){
@@ -49,6 +48,16 @@ class WorkShop {
         this.employees.sort(compareInv);
         return 1;
     }
+
+    getFinalList(){
+        let finalList = getOverEighteen(this.employees);
+        finalList.sort(compare);
+        finalList.forEach((element)=> {
+            element.name = element.name.toUpperCase();
+        });
+        finalList.sort(compareInv);
+        return finalList;
+    }
 }
 
 QUnit.test("Checking Function for workers who are +18, so i can get list of Sunday Workers",(assert) => {
@@ -61,7 +70,6 @@ QUnit.test("Checking Function for workers who are +18, so i can get list of Sund
     assert.ok(work.workOnSunday()[0].name === 'Mike');
     assert.ok(work.workOnSunday()[0].age === 51);
 });
-
 
 QUnit.test("Sortng Array By Names, so its easier to find employees",(assert) => {
     const work = new WorkShop();
@@ -104,3 +112,14 @@ QUnit.test("Sortng Array By Names, so its easier to find employees",(assert) => 
     assert.ok(work.employees[2].name === 'Mike');
     assert.ok(work.employees[3].name === 'Max');
 });
+
+QUnit.test("Final List of Employes who can work on sunday with all above rules",(assert) => {
+    const work = new WorkShop();
+    work.addEmployee('Sepp',18);
+    work.addEmployee('Max', 17);
+    work.addEmployee('Nina', 19);
+    work.addEmployee('Mike', 51);
+
+    assert.ok(work.getFinalList()[0].name === 'NINA');
+    assert.ok(work.getFinalList()[1].name === 'MIKE');
+})
